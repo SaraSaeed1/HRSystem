@@ -1,0 +1,185 @@
+﻿@model HRSystem.Entity.User
+
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Employee.cshtml";
+}
+
+<!-- Navbar -->
+<nav class="d-flex justify-content-between m-4 p-1">
+
+    <div class="d-flex">
+        <a href="/Employee/Dashboard"><h4 class="font-weight-bolder mt-3 mb-3 text-primary"> Welcome @Model.Name  </h4></a>
+    </div>
+    <div>
+        <button type="button" class="btn btn-outline-primary">
+            @Html.ActionLink("Add New Experience", "CreateExperience")
+        </button>
+    </div>
+</nav>
+<!-- End Navbar -->
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class=" d-flex justify-content-center">
+        <div class="col-6 alert alert-success alert-dismissable">
+            <strong>Added successfully</strong>
+        </div>
+    </div>
+}
+<div class="card m-4">
+    <div class="card-header pb-0 px-3">
+        <h6 class="mb-0">Your Information</h6>
+    </div>
+    <div class="card-body pt-4 p-3">
+        <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
+            <div class="d-flex flex-column">
+                <h6 class="mb-3 text-sm">@Model.Name</h6>
+                <span class="mb-2 text-xs">UserName: <span class="text-dark font-weight-bold ms-sm-2">@Model.UserName</span></span>
+                <span class="mb-2 text-xs">Role: <span class="text-dark font-weight-bold ms-sm-2">@Model.Role.Name</span></span>
+                <span class="mb-2 text-xs">Password: <span class="text-dark ms-sm-2 font-weight-bold" type="password">@Model.Password</span></span>
+                @if (Model.Department_id != null)
+                {
+                    <span class="mb-2 text-xs">Department Name: <span class="text-dark ms-sm-2 font-weight-bold">@Model.Department.Name</span></span>
+                }
+                <span class="mb-2 text-xs">Salary: <span class="text-dark ms-sm-2 font-weight-bold">@Model.Salary $</span></span>
+            </div>
+        </li>
+    </div>
+    <div>
+        <div>
+            @if (ViewBag.experience.Count > 0)
+            {
+                <div class="card-header pb-0 px-3">
+                    <h6 class="mb-0">Your Experience</h6>
+                </div>
+                <div class="row d-flex justify-content-evenly flex-wrap">
+                    @foreach (var ex in ViewBag.experience)
+                    {
+                        <div class="col-6 ">
+                            <div class="card-body pt-4 p-3">
+                                <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
+                                    <div class="d-flex flex-column">
+                                        <h6 class="mb-3 text-sm">Experience</h6>
+                                        <span class="mb-2 text-xs">Title: <span class="text-dark font-weight-bold ms-sm-2">@ex.Title </span></span>
+                                        <span class="mb-2 text-xs">Description: <span class="text-dark ms-sm-2 font-weight-bold"> @ex.Description</span></span>
+                                    </div>
+                                    <div class="ms-auto text-end">
+                                        <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="/Employee/DeleteExperience/@ex.Id"><i class="far fa-trash-alt me-2"></i>Delete</a>
+                                    </div>
+                                </li>
+                            </div>
+                        </div>
+                    }
+
+
+                </div>
+
+            }
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-4">
+                @if (Model.Department_id != null)
+                {
+                    <div class="card-header pb-0">
+                        <h4>Employees in @Model.Department.Name departmen</h4>
+                    </div>
+                    <div class="card-body ">
+                        <table class="table align-items-center mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">User Information</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var user in ViewBag.employee)
+                                {
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex px-2 py-1">
+                                                <h6 class="mb-0 text-sm">@user.Name</h6>
+                                            </div>
+                                        </td>
+
+                                        <td class="align-middle text-center">
+                                            <span class="text-warning text-xs font-weight-bold">
+                                                <a href="/Employee/Details/@user.Id">
+                                                    Employee Profile
+                                                    <svg width="16" height="16" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
+                                                        <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z" />
+                                                        <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z" />
+                                                    </svg>
+                                                </a>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                }
+            </div>
+        </div>
+        @*<div class="col-8">
+                <div class="card mb-4">
+                    <div class="card-header pb-0">
+                        <h6>Requste</h6>
+                    </div>
+                    <div class="card-body ">
+                        <table class="table align-items-center mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">User Information</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var user in Model)
+                                {
+                                <tr>
+                                    <td>
+                                        <div class="d-flex px-2 py-1">
+                                            <h6 class="mb-0 text-sm">@user.Name</h6>
+                                        </div>
+                                    </td>
+                                    @if (user.Is_Active == 0)
+                                    {
+                                        <td class="align-middle text-center text-sm">
+                                            <a class="badge badge-sm bg-gradient-secondary" href="@Url.Action("Active", new { id = user.Id })">Active </a>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td class="align-middle text-center text-sm">
+                                            <a class="badge badge-sm bg-gradient-success" href="@Url.Action("Active", new { id = user.Id })">Un Active </a>
+                                        </td>
+                                    }
+                                    <td class="align-middle text-center">
+                                        <span class="text-warning text-xs font-weight-bold">
+                                            <a href="/Admin/EmployeeDetails/@user.Id">
+                                                User Details
+                                                <svg width="16" height="16" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z" />
+                                                    <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z" />
+                                                </svg>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>*@
+    </div>
+</div>

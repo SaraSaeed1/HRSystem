@@ -1,0 +1,142 @@
+﻿@model HRSystem.Entity.Experience
+
+@{
+    ViewBag.Title = "Add Experience";
+    Layout = "~/Views/Shared/_Employee.cshtml";
+}
+
+<!-- Navbar -->
+<nav class="d-flex justify-content-between m-4 p-1">
+
+    <div class="d-flex">
+        <a href="/Employee/CreateExperience"><h4 class="font-weight-bolder mt-3 mb-3 text-primary"> Add Experience </h4></a>
+    </div>
+</nav>
+<!-- End Navbar -->
+@if (TempData["SuccessMessage"] != null)
+{
+<div class=" d-flex justify-content-center">
+    <div class="col-6 alert alert-success alert-dismissable">
+        <strong>Added successfully</strong>
+    </div>
+</div>}
+
+<script type="text/javascript">
+    function GetDynamicTextbox(value) {
+        return '<div><input type="text" name="texttest" style="width:200px";/><input type="text" name="texttest" style="width:200px";/><input type="button" onclick="RemoveTextBox(this)" value="Remove"/></div>'
+
+    }
+    function AddTextBox() {
+        var div = document.createElement('DIV');
+        div.innerHTML = GetDynamicTextbox("");
+        document.getElementById("dicCont").appendChild(div);
+    }
+
+    function RemoveTextBox(div) {
+        document.getElementById("dicCont").removeChild(div.parentNode.parentNode);
+    }
+</script>
+
+
+
+
+@*@using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Experience</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }*@
+
+
+
+<main class="main-content">
+    <div class="page-header align-items-start min-vh-75 pt-3 pb-3 m-3 border-radius-lg" style="background-image: url('../../Content/assets/img/curved-images/curved6.jpg');">
+        <span class="mask bg-gradient-dark opacity-6"></span>
+        <div class="container mt-3">
+            <div class="col-8 mx-auto">
+                <div class="card z-index-0">
+                    <div class="card-header text-center pt-4">
+                        <h5>Add new Experience </h5>
+                    </div>
+                    <div class="card-body">
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-horizontal">
+                                <hr />
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2", required = "required" })
+                                    <div class="col">
+                                        @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2", required = "required" })
+                                    <div class="col">
+                                        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+
+
+                                <div class="row d-flex justify-content-evenly">
+                                    <a href="/Employee/Dashboard" class="btn btn-outline-primary  w-40 my-4 mb-2"> Cancel</a>
+                                    <button type="submit" class=" btn btn-outline-info w-40 my-4 mb-2">Add</button>
+                                    @*<button type="submit" class=" btn bg-gradient-faded-info-vertical w-40 my-4 mb-2">Cancel</button>*@
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a class="m-4 icon-text-aligner font-weight-bolder" href="  ">
+        <svg xmlns= width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
+        </svg>
+        Back
+    </a>
+</main>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

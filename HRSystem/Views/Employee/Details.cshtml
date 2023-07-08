@@ -1,0 +1,78 @@
+﻿@model HRSystem.Entity.User
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Employee.cshtml";
+}
+
+
+<div class="container-fluid">
+    <div class="page-header min-height-300 border-radius-xl mt-4" style="background-image: url('../../Content/assets/img/curved-images/curved11.jpg'); background-position-y: 50%;">
+        <span class="mask bg-gradient-primary opacity-6"></span>
+    </div>
+    <div class="card card-body blur shadow-blur mx-4 mt-n6 overflow-hidden">
+        <div class="row gx-4">
+            <div class="col-auto">
+                <div class="avatar avatar-xl position-relative">
+                    @if (Model.Role_Id == 1)
+                    {
+                        <img src="~/Content/assets/img/curved-images/AdminImg.jpeg" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+                    }
+                    else
+                    {
+
+                        <svg width="50" height="50" class="bi bi-person-fill" fill="#cb0c9f " viewBox="0 0 16 16">
+                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                        </svg>
+                    }
+                </div>
+            </div>
+
+            <div class="col-auto my-auto">
+                <div class="h-100">
+                    <h5 class="mb-1">
+                        @Model.Name
+                    </h5>
+                    <p class="mb-0 font-weight-bold text-sm">
+                        @ViewBag.roleName
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid py-4">
+        <div class="row">
+
+            <div class="col-8">
+                <div class="card h-100">
+                    <div class="card-header pb-0 p-3">
+                        <div class="row">
+                            <div class="col-md-8 d-flex align-items-center">
+                                <h6 class="mb-0">Profile Information</h6>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="card-body p-3">
+                        @*<p class="text-sm">
+                              Hi, I’m Alec Thompson, Decisions: If you can’t decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality).
+                            </p>*@
+                        <hr class="horizontal gray-light my-4">
+                        <ul class="list-group">
+                            <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Full Name:</strong> &nbsp; @Model.Name</li>
+                            <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">UserName:</strong> &nbsp; @Model.UserName</li>
+                            <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Department:</strong> &nbsp; @Model.Department.Name</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<a class="m-4 icon-text-aligner font-weight-bolder" href="/Employee/Dashboard">
+    <svg xmlns= width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
+    </svg>
+    Back
+</a>

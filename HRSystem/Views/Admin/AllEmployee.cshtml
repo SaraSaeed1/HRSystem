@@ -1,0 +1,118 @@
+﻿@model PagedList.IPagedList<HRSystem.Entity.User>
+@using PagedList.Mvc;
+
+@{ ViewBag.Title = "DashboardEmployee";
+    Layout = "~/Views/Shared/_Admin.cshtml"; }
+
+<!-- Navbar -->
+<nav class="d-flex justify-content-between m-4 p-1">
+
+    <div>
+        <h4 class="font-weight-bolder mt-3 mb-3">@Html.ActionLink("Employees", "AllEmployee", "Admin")</h4>
+    </div>
+    <div>
+        <button type="button" class="btn btn-outline-primary">
+            @Html.ActionLink("Add New Employee", "CreateEmployee")
+        </button>
+    </div>
+</nav>
+<!-- End Navbar -->
+@if (TempData["SuccessMessage"] != null)
+{
+<div class=" d-flex justify-content-center">
+    <div class="col-6 alert alert-success alert-dismissable">
+        <strong>Added successfully</strong>
+    </div>
+</div>}
+@if (TempData["DeleteMessage"] != null)
+{
+<div class=" d-flex justify-content-center">
+    <div class="col-6 alert alert-danger alert-dismissable">
+        <strong>@TempData["DeleteMessage"] </strong>
+    </div>
+</div>}
+@if (TempData["DeleteEmployee"] != null)
+{
+<div class=" d-flex justify-content-center">
+    <div class="col-6 alert alert-success alert-dismissable">
+        <strong> Employee has been deleted </strong>
+    </div>
+</div>}
+
+
+
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-4">
+                <div class="card-header pb-0 d-flex justify-content-between">
+                    <h4>All Employees</h4>
+                </div>
+                <div class="card-body ">
+                    <table class="table align-items-center mb-0">
+                        <thead>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Department</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">User Information</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var user in Model)
+                            {
+                <tr>
+                    <td>
+                        <div class="d-flex px-2 py-1">
+                            <h6 class="mb-0 text-sm">@user.Name</h6>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="align-middle text-center text-sm">
+                            @{ if (user.Department_id != null)
+                                {
+                <h6 class="mb-0 text-sm">@user.Department.Name</h6> }
+                                else
+                                {
+                                    <h5></h5>
+                                }
+                            }
+                        </div>
+                    </td>
+                    @if (user.Is_Active == 0)
+                    {
+            <td class="align-middle text-center text-sm">
+                <a class="badge badge-sm bg-gradient-secondary" href="@Url.Action("Active", new { id = user.Id })">Active </a>
+            </td> }
+                            else
+                            {
+            <td class="align-middle text-center text-sm">
+                <a class="badge badge-sm bg-gradient-success" href="@Url.Action("Active", new { id = user.Id })">InActive </a>
+            </td>
+}
+                    <td class="align-middle text-center">
+                        <span class="text-warning text-xs font-weight-bold">
+                            <a href="/Admin/EmployeeDetails/@user.Id">
+                                User Details
+                                <svg width="16" height="16" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z" />
+                                    <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z" />
+                                </svg>
+                            </a>
+                        </span>
+                    </td>
+                </tr>
+}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            page:
+            @(Model.PageCount<Model.PageNumber ? 0 : Model.PageNumber)
+            from
+            @Model.PageCount
+
+            @Html.PagedListPager(Model, pageNum => Url.Action("AllEmployee", new { pageNum }))
+        </div>

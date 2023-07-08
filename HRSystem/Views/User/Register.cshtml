@@ -1,0 +1,88 @@
+﻿@model HRSystem.Entity.User
+
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_General.cshtml";}
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg position-absolute top-0 z-index-3 w-100 shadow-none my-3 navbar-transparent mt-4">
+    <div class="container">
+        <a class="navbar-brand font-weight-bolder ms-lg-0 ms-3 text-white">
+            HR System
+        </a>
+        <div class="collapse navbar-collapse" id="navigation">
+            <ul class="navbar-nav mx-auto ms-xl-auto me-xl-7">
+            </ul>
+            <li class="nav-item d-flex align-items-center">
+                <a class="btn btn-round btn-sm mb-0 btn-outline-white me-2" href="/User/Login">Login</a>
+            </li>
+        </div>
+    </div>
+</nav>
+<!-- End Navbar -->
+<main class="main-content  mt-0">
+    <section class="min-vh-100 mb-8">
+        <div class="page-header align-items-start min-vh-50 pt-5 pb-11 m-3 border-radius-lg" style="background-image: url('../../Content/assets/img/curved-images/curved14.jpg');">
+            <span class="mask bg-gradient-dark opacity-6"></span>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-5 text-center mx-auto">
+                        <h1 class="text-white mb-2 mt-5">Welcome!</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row mt-n12">
+                <div class="col-xl-4 col-lg-5 col-md-7 mx-auto">
+                    <div class="card z-index-0">
+                        <div class="card-header text-center pt-4">
+                            <h5>Register</h5>
+                            <label class="text-danger mt-3">@ViewBag.error</label>
+                            <label class="text-success mt-3">@ViewBag.good</label>
+                        </div>
+                        <div class="card-body">
+                            @using (Html.BeginForm())
+                            {
+                                @Html.AntiForgeryToken()
+                                <br />
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                                <div class="form-outline form-white mb-4">
+                                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "form-label" })
+                                    <div class="col">
+                                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control form-control-lg", required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-outline form-white mb-4">
+                                    @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "form-label" })
+                                    <div class="col">
+                                        @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control form-control-lg", required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-outline form-white mb-4">
+                                    @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "form-label" })
+                                    <div class="col">
+                                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control form-control-lg", required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-outline form-white mb-4">
+                                    @Html.LabelFor(model => model.RePassword, htmlAttributes: new { @class = "form-label" })
+                                    <div class="col">
+                                        @Html.EditorFor(model => model.RePassword, new { htmlAttributes = new { @class = "form-control form-control-lg", required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.RePassword, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Register</button>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
